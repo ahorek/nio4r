@@ -40,10 +40,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{matrix.ruby}}
-          bundler-cache: true
 
       - name: set JAVA_HOME
         if: |
@@ -51,6 +47,11 @@ jobs:
         shell: bash
         run:  |
           echo JAVA_HOME=$JAVA_HOME_11_X64 >> $GITHUB_ENV
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{matrix.ruby}}
+          bundler-cache: true
 
       - name: Compile
         run: bundle exec rake compile
